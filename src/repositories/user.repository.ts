@@ -12,11 +12,16 @@ export class UserRepository {
   ) {}
 
   async findAll(): Promise<UserEntity[]> {
-    return this.repo.find();
+    return this.repo.find({
+      relations: ['userRoles', 'userRoles.role'],
+    });
   }
 
   async findById(id: string): Promise<UserEntity | null> {
-    return this.repo.findOneBy({ id });
+    return this.repo.findOne({
+      where: { id },
+      relations: ['userRoles', 'userRoles.role'],
+    });
   }
 
   async findByEmail(email: string): Promise<UserEntity | null> {

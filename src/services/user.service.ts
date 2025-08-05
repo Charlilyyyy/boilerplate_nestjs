@@ -80,7 +80,21 @@ export class UserService {
       created_at: user.created_at,
       updated_at: user.updated_at,
       deleted_at: user.deleted_at,
-      userRoles: user.userRoles
+      userRoles: user.userRoles?.map(userRole => ({
+        id: userRole.id,
+        userId: userRole.userId,
+        roleId: userRole.roleId,
+        assignedAt: userRole.assignedAt,
+        deletedAt: userRole.deletedAt,
+        role: userRole.role ? {
+          id: userRole.role.id,
+          name: userRole.role.name,
+          description: userRole.role.description,
+          createdAt: userRole.role.createdAt,
+          updatedAt: userRole.role.updatedAt,
+          deletedAt: userRole.role.deletedAt,
+        } : null,
+      })) || [],
     };
   }
 } 
