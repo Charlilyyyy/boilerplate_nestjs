@@ -5,22 +5,10 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
+  OneToMany
 } from 'typeorm';
 
-export enum UserRole {
-  ADMIN = 'admin',
-  USER = 'user',
-  MODERATOR = 'moderator',
-}
-
-export interface User {
-  id: string;
-  email: string;
-  name: string;
-  role: UserRole;
-  createdAt: Date;
-  updatedAt: Date;
-}
+import { UserRolesEntity } from '../models/user_roles.model';
 
 @Entity({ name: 'users' })
 export class UserEntity {
@@ -59,6 +47,13 @@ export class UserEntity {
 
   @DeleteDateColumn({ name: 'deleted_at', type: 'timestamptz', nullable: true })
   deleted_at?: Date;
+
+  @OneToMany(() => UserRolesEntity, (userRoles) => userRoles.user, {
+    cascade: true,
+    eager: true,
+  })
+  userRoles: UserRolesEntity[];
+  
 
   constructor(partial?: Partial<UserEntity>) {
     if (partial) Object.assign(this, partial);

@@ -1,4 +1,5 @@
-import { UserRole } from '../models/user.model';
+import { UserRoleInterface } from "src/interface/user_role.interface";
+import { UserRolesEntity } from "../models/user_roles.model";
 
 export class CreateUserDto {
   name?: string;
@@ -32,4 +33,5 @@ export class UserResponseDto {
   created_at?: Date;
   updated_at?: Date;
   deleted_at?: Date;
+  userRoles: UserRolesEntity[];
 } 

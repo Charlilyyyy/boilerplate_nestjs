@@ -3,6 +3,7 @@ import { UserRepository } from '../repositories/user.repository';
 import { CreateUserDto, UpdateUserDto, UserResponseDto } from '../dto/user.dto';
 import { UserEntity } from '../models/user.model';
 import { validateEmail } from '../helpers/validation.helper';
+import { UserRoleInterface } from '../interface/user_role.interface';
 
 @Injectable()
 export class UserService {
@@ -10,6 +11,7 @@ export class UserService {
 
   async findAll(): Promise<UserResponseDto[]> {
     const users = await this.userRepository.findAll();
+    console.log(users)
     return users.map(user => this.mapToResponseDto(user));
   }
 
@@ -78,6 +80,7 @@ export class UserService {
       created_at: user.created_at,
       updated_at: user.updated_at,
       deleted_at: user.deleted_at,
+      userRoles: user.userRoles
     };
   }
 } 
