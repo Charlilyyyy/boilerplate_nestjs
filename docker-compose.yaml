@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  boilerplate-nestjs:
+    build: .
+    ports:
+      - ${APP_PORT}:${DOCKER_PORT}
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    command: npm run start:dev
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - DB_HOST=${POSTGRES_HOST_DOCKER}
+      - DB_PORT=${POSTGRES_HOST_PORT}
+      - DB_USERNAME=${POSTGRES_USER}
+      - DB_PASSWORD=${POSTGRES_PASSWORD}
+      - DB_DATABASE=${POSTGRES_DB}
